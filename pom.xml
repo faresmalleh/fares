@@ -67,11 +67,11 @@
 <distributionManagement>
     <snapshotRepository>
       <id>deploymentRepo</id>
-      <url>http://localhost:8081/repository/maven-snapshots/</url>
+      <url>http://localhost:8085/repository/maven-snapshots/</url>
     </snapshotRepository>
     <repository>
       <id>deploymentRepo</id>
-      <url>http://localhost:8081/repository/maven-releases/</url>
+      <url>http://localhost:8085/repository/maven-releases/</url>
     </repository>
   </distributionManagement>
 </project>
