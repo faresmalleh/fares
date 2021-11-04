@@ -49,7 +49,7 @@ dockerImage = ''
 
                   }
                   stage('Cloning our Git') {
-steps { git 'https://github.com/YourGithubAccount/YourGithubRepository.git’ }
+steps { git 'https://github.com/faresmalleh/fares.git’ }
 }
 stage('Building our image') {
 steps { script { dockerImage= docker.build registry + ":$BUILD_NUMBER" } }
