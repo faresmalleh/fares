@@ -1,64 +1,71 @@
-pipeline {
-environment
-{
-registry = "faresmalleh/faresdoc"
-registryCredential= 'faresmalleh'
-dockerImage = ''
-}
-       agent any
-        
-           stages{
+pipeline { 
 
-             stage( 'Checkout  GIT' ){
-                       steps{
-                          echo 'Pulling ... ';
-                              git branch:  'main' ,
-                              url :'https://github.com/faresmalleh/fares'
-                              }
+    environment { 
+
+        registry = "aymenca/aymenca/doc" 
+
+        registryCredential = 'dockerhub_id' 
+
+        dockerImage = '' 
+
+    }
+
+    agent any 
+
+    stages { 
+
+        stage('Cloning our Git') { 
+
+            steps { 
+
+                git 'https://github.com/aymenmelki/Timesheet' 
+
+            }
+
+        } 
+
+        stage('Building our image') { 
+
+            steps { 
+
+                script { 
+
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+
+                }
+
+            } 
+
+        }
+
+        stage('Deploy our image') { 
+
+            steps { 
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
                     }
 
-            stage("Test,Build"){
-               steps{
+                } 
 
-                   bat "mvn clean install"
-                    }
+            }
 
-                  }
+        } 
 
-              stage("package"){
-               steps{
+        stage('Cleaning up') { 
 
-                   bat "mvn package"
-                    }
+            steps { 
 
-                  }
-                  
-               stage("Sonar"){
-               steps{
+                sh "docker rmi $registry:$BUILD_NUMBER" 
 
-                   bat "mvn sonar:sonar"
-                    }
+            }
 
-                  }
-                  
-                stage("Nexus"){
-               steps{
+        } 
 
-                   bat "mvn deploy"
-                    }
+    }
 
-                  }
-                  stage('Cloning our Git') {
-steps { git 'https://github.com/faresmalleh/fares.git' }
-}
-stage('Building our image') {
-steps { script { dockerImage= docker.build registry + ":$BUILD_NUMBER" } }
-}
-stage('Deploy our image') {
-steps { script { docker.withRegistry( '', registryCredential) { dockerImage.push() } } }
-}
-stage('Cleaning up') {
-steps { bat "docker rmi $registry:$BUILD_NUMBER" }
-}
-           }
 }
