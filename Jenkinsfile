@@ -14,6 +14,15 @@ pipeline {
 
     stages { 
 
+        
+        
+        
+           stage( 'Checkout  GIT' ){
+                       steps{
+                         
+                              url :'https://github.com/faresmalleh/fares'
+                              }
+                    }
         stage('Cloning our Git') { 
 
             steps { 
