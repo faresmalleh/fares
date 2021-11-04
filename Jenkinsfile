@@ -18,7 +18,7 @@ pipeline {
 
             steps { 
 
-                git 'https://github.com/aymenmelki/Timesheet' 
+                git 'https://github.com/faresmalleh/fares' 
 
             }
 
