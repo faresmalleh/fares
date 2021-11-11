@@ -109,14 +109,7 @@ pipeline {
                         dockerImage.push() 
 
                     }
-                    stage('Cleaning up') { 
-
-            steps { 
-
-                bat "docker rmi $registry:$BUILD_NUMBER" 
-
-            }
-        } 
+                    
 
                 } 
 
@@ -124,7 +117,14 @@ pipeline {
 
         } 
 
-      
+      stage('Cleaning up') { 
+
+            steps { 
+
+                bat "docker rmi $registry:$BUILD_NUMBER" 
+
+            }
+        } 
 
     }
 
