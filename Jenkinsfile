@@ -13,11 +13,7 @@ pipeline {
     agent any 
 
     stages { 
-       stage('mailing'){
-			steps{
-			mail bcc: '', body: 'your build is successful !!!!', cc: '', from: '', replyTo: '', subject: 'jenkins', to: 'fares.malleh@esprit.tn'
-			}
-		}
+       
 
              stage( 'Checkout  GIT' ){
                        steps{
@@ -58,34 +54,7 @@ pipeline {
                     }
 
                   }
-           
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
+         
       
 
         stage('Building our image') { 
@@ -129,6 +98,11 @@ pipeline {
 
             }
         } 
+	    stage('mailing'){
+			steps{
+			mail bcc: '', body: 'your build is successful !!!!', cc: '', from: '', replyTo: '', subject: 'jenkins', to: 'fares.malleh@esprit.tn'
+			}
+		}
 
     }
 
