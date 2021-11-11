@@ -113,7 +113,7 @@ pipeline {
 
             steps { 
 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
+                bat "docker rmi $registry:$BUILD_NUMBER" 
 
             }
         } 
